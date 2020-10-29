@@ -24,7 +24,7 @@ void setup() {
 	}
 
 	pinMode(relay, OUTPUT);
-	digitalWrite(relay, HIGH);
+	digitalWrite(relay, HIGH); 			// turn off the relay (inverted logic!)
 
 	for (size_t i = 0; i < ADMINS; i++) {
 		cubeBot.sendMessage(users[i], "Aqua Cube is started");
@@ -41,17 +41,16 @@ void loop() {
 		for(int i = 0; i < sizeof(users); i++) {
 			if (msg.sender.id == users[i]) {
 				isUserFinded = true;
-				if (msg.text.equalsIgnoreCase("+")) {              	// if the received message is "LIGHT ON"...
+				if (msg.text.equalsIgnoreCase("+")) {              				// if the received message is "LIGHT ON"...
 					digitalWrite(relay, LOW);                               	// turn on the LED (inverted logic!)
-					cubeBot.sendMessage(msg.sender.id, "Light is now ON");  // notify the sender
-				} else if (msg.text.equalsIgnoreCase("-")) {        // if the received message is "LIGHT OFF"...
+					cubeBot.sendMessage(msg.sender.id, "Light is now ON");  	// notify the sender
+				} else if (msg.text.equalsIgnoreCase("-")) {        			// if the received message is "LIGHT OFF"...
 					digitalWrite(relay, HIGH);                              	// turn off the relay (inverted logic!)
-					cubeBot.sendMessage(msg.sender.id, "Light is now OFF"); // notify the sender
-				} else {                                                    // otherwise...
-					// generate the message for the sender
+					cubeBot.sendMessage(msg.sender.id, "Light is now OFF"); 	// notify the sender
+				} else {                                                    	// otherwise...
 					String reply;
 					reply = (String)"Welcome " + msg.sender.username + (String)". Try + or -.";
-					cubeBot.sendMessage(msg.sender.id, reply);             // and send it
+					cubeBot.sendMessage(msg.sender.id, reply);
 				}
 				break;
 			}
