@@ -1,5 +1,5 @@
 #include "CTBot.h"
-#include "env.h"
+#include ".env.h"
 CTBot cubeBot;
 
 String ssid = SSID;
