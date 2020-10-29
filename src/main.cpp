@@ -5,32 +5,30 @@ CTBot cubeBot;
 String ssid = SSID;
 String pass = SSID_PASSWORD;
 String token = BOT_TOKEN;     				
-int32_t users[] = USERS;
+int64_t users[] = USERS;
 
 uint8_t relay = 14;      
 
 
 void setup() {
-	// initialize the Serial
 	Serial.begin(115200);
 	Serial.println("Starting TelegramBot...");
 
-	// connect the ESP8266 to the desired access point
 	cubeBot.wifiConnect(ssid, pass);
-
-	// set the telegram bot token
 	cubeBot.setTelegramToken(token);
 
-	// check if all things are ok
-	if (cubeBot.testConnection())
+	if (cubeBot.testConnection()) {
 		Serial.println("\ntestConnection OK");
-	else
+	} else {
 		Serial.println("\ntestConnection NOK");
+	}
 
-	// set the pin connected to the LED to act as output pin
 	pinMode(relay, OUTPUT);
-	digitalWrite(relay, HIGH); // turn off the relay (inverted logic!)
+	digitalWrite(relay, HIGH);
 
+	for (size_t i = 0; i < ADMINS; i++) {
+		cubeBot.sendMessage(users[i], "Aqua Cube is started");
+	}
 }
 
 
